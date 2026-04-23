@@ -1,0 +1,48 @@
+services:
+  # THE STATION (Music / Spotify Clone)
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    ports:
+      - "4533:4533"
+    volumes:
+      - ./data/navidrome:/data
+      - ./media/music:/music
+    environment:
+      ND_SCANSCHEDULE: 1h
+
+  # THE LIBRARY (E-books / Manga)
+  kavita:
+    image: kavitareader/kavita:latest
+    container_name: kavita
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./media/books:/data
+      - ./data/kavita:/config
+
+  # THE FORGE AI (Ollama Local LLM)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./data/ollama:/root/.ollama
+    # If you have an NVIDIA GPU, uncomment the lines below:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # THE DASHBOARD (Custom Dark Deco Interface)
+  dashboard:
+    image: gethomepage/homepage:latest
+    container_name: dusthead_dash
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config/homepage:/app/config
