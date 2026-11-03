@@ -1,3 +1,6 @@
+## Update the docker compose services
+##Make sure the volumes file paths are the
+
 services:
   # THE STATION (Music / Spotify Clone)
   navidrome:
@@ -46,3 +49,6 @@ services:
       - "3000:3000"
     volumes:
       - ./config/homepage:/app/config
+
+
+    
